@@ -1,11 +1,10 @@
-import ApiFetch from "./components/ApiFetch";
-
+import SortSample from "./components/SortSample";
 
 const App = () => {
 
   return (
     <div>
-      <ApiFetch />
+      <SortSample />
     </div>
   )
   
