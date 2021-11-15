@@ -1,6 +1,41 @@
-const TodoList = () => {
+
+import { ChangeEvent } from "react"
+import { useState } from "react"
+
+type TextBlockProps = {
+    id: number
+    text: string
+}
+
+const TextBlock = (props: TextBlockProps) => {
+    const [text, setText] = useState(props.text)
+    const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setText(e.currentTarget.value)
+    }
     return (
-        <p>add list</p>
+        <textarea value={text} onChange={e => handleChange(e)}/>
+    )
+}
+
+
+
+
+
+const TodoList = () => {
+    const defaultTexts = [
+        {id: 1, text: "abc"},
+        {id: 2, text: "def"},
+        {id: 3, text: "ghi"}
+    ]
+    
+    return (       
+        <form>{defaultTexts.map((text) => {
+            return (
+                <TextBlock id={text.id} text={text.text} />
+            )
+        })
+            
+        }</form>
     )
 }
 
