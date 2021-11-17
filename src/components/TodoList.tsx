@@ -14,7 +14,7 @@ const TextBlock = (props: TextBlockProps) => {
     }
     return (
         <textarea 
-            className={"w-56"}
+            className={"p-2 border-4 bg-yellow-200"}
             value={text} 
             onChange={e => handleChange(e)}
         />
@@ -33,7 +33,7 @@ const TodoList = () => {
     ]
     
     return (       
-        <form className="grid grid-cols-1">
+        <form className="flex flex-col p-2 bg-red-400 flex-grow">
             {defaultTexts.map((text) => {
                 return (
                     <TextBlock 

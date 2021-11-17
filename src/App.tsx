@@ -7,8 +7,10 @@ function App() {
   
 
   return (
-    <div>
+    <div className={"flex flex-row w-full"}>
+      <p className={"p-2 bg-gray-400"}>left</p>
       <TodoList />
+      <p className={"p-2 bg-gray-400"}>right</p>
     </div>
     
   );
