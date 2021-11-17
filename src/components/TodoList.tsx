@@ -13,7 +13,11 @@ const TextBlock = (props: TextBlockProps) => {
         setText(e.currentTarget.value)
     }
     return (
-        <textarea value={text} onChange={e => handleChange(e)}/>
+        <textarea 
+            className={"w-56"}
+            value={text} 
+            onChange={e => handleChange(e)}
+        />
     )
 }
 
@@ -29,11 +33,16 @@ const TodoList = () => {
     ]
     
     return (       
-        <form>{defaultTexts.map((text) => {
-            return (
-                <TextBlock id={text.id} text={text.text} />
-            )
-        })
+        <form className="grid grid-cols-1">
+            {defaultTexts.map((text) => {
+                return (
+                    <TextBlock 
+                    
+                        id={text.id} 
+                        text={text.text} 
+                    />
+                )
+            })
             
         }</form>
     )
