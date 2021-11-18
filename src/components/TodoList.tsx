@@ -18,6 +18,7 @@ const TextBlock = (props: TextBlockProps) => {
             className={"rounded-lg bg-yellow-200 my-1 px-1"}
             value={text} 
             onChange={e => handleChange(e)}
+            style={{resize: "none"}}
         />
     )
 }
