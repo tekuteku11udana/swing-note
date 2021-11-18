@@ -1,6 +1,7 @@
 
 import { ChangeEvent } from "react"
 import { useState } from "react"
+import TextareaAutosize from 'react-textarea-autosize';
 
 type TextBlockProps = {
     id: number
@@ -13,8 +14,8 @@ const TextBlock = (props: TextBlockProps) => {
         setText(e.currentTarget.value)
     }
     return (
-        <textarea 
-            className={"p-2 border-4 bg-yellow-200"}
+        <TextareaAutosize 
+            className={"rounded-lg bg-yellow-200 my-1 px-1"}
             value={text} 
             onChange={e => handleChange(e)}
         />
