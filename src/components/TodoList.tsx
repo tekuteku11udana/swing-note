@@ -2,14 +2,13 @@
 import { ChangeEvent } from "react"
 import { useState } from "react"
 import TextareaAutosize from 'react-textarea-autosize';
+import { DnDSortResult, useDnDSort } from "../DnD/useDnDSort";
+import { TextBlock } from "../types/text";
 
-type TextBlockProps = {
-    id: number
-    text: string
-}
 
-const TextBlock = (props: TextBlockProps) => {
-    const [text, setText] = useState(props.text)
+
+const TextareaBlock = (props: DnDSortResult<string>) => {
+    const [text, setText] = useState(props.value)
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.currentTarget.value)
     }
@@ -19,6 +18,7 @@ const TextBlock = (props: TextBlockProps) => {
             value={text} 
             onChange={e => handleChange(e)}
             style={{resize: "none"}}
+            {...props.events}
         />
     )
 }
@@ -28,20 +28,29 @@ const TextBlock = (props: TextBlockProps) => {
 
 
 const TodoList = () => {
-    const defaultTexts = [
-        {id: 1, text: "abc"},
-        {id: 2, text: "def"},
-        {id: 3, text: "ghi"}
+    // const defaultTextBlocks = [
+    //     {id: 1, text: "abc"},
+    //     {id: 2, text: "def"},
+    //     {id: 3, text: "ghi"}
+    // ]
+    
+    const defaultTextBlocks: string[] =[
+        "abc",
+        "def",
+        "ghi"
     ]
+
+    const sortedTextBlocks = useDnDSort(defaultTextBlocks)
     
     return (       
         <form className="flex flex-col p-2 bg-red-400 flex-grow">
-            {defaultTexts.map((text) => {
+            {sortedTextBlocks.map((block) => {
                 return (
-                    <TextBlock 
+                    <TextareaBlock 
                     
-                        id={text.id} 
-                        text={text.text} 
+                        key={block.key} 
+                        value={block.value} 
+                        events={block.events}
                     />
                 )
             })
