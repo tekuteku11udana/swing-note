@@ -3,22 +3,19 @@ import React, { useRef, useState } from "react";
 /**
  * @description マウスポインターが要素と被っているか判定します
  */
-const isHover = (event: MouseEvent, element: HTMLElement): boolean => {
-  // マウスポインターの座標を取得
-  const clientX = event.clientX;
-  const clientY = event.clientY;
 
-  // 重なりを判定する要素のサイズと座標を取得
-  const rect = element.getBoundingClientRect();
 
-  // マウスポインターが要素と重なっているかを判定する
-  return (
-    clientY < rect.bottom &&
-    clientY > rect.top &&
-    clientX < rect.right &&
-    clientX > rect.left
-  );
-};
+const isHover = (draggedElm: HTMLElement, hoveredElm: HTMLElement): boolean => {
+    const {top: dTop, bottom: dBottom} = draggedElm.getBoundingClientRect();
+    const {top: hTop, bottom: hBottom} = hoveredElm.getBoundingClientRect();
+    
+    const hReferenceLine = (hTop + hBottom) / 2;
+
+    return (
+        hReferenceLine > dTop &&
+        dBottom > hReferenceLine
+    )
+}
 
 // 座標の型
 interface Position {
@@ -102,7 +99,8 @@ export const useDnDSort = <T extends Object>(defaultItems: T[]): DnDSortResult<T
 
     // ホバーされている要素の配列の位置を取得
     const hoveredIndex = dndItems.findIndex(
-      ({ element }, index) => index !== dragIndex && isHover(event, element)
+    //   ({ element }, index) => index !== dragIndex && isHover(event, element)
+      ({ element: hoveredElement }, index) => index !== dragIndex && isHover(dragElement.element, hoveredElement)
     );
 
     // ホバーされている要素があれば、ドラッグしている要素と入れ替える
