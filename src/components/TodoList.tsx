@@ -1,10 +1,16 @@
 
 import { ChangeEvent } from "react"
-import { useState } from "react"
+import { useState ,useEffect} from "react"
 import TextareaAutosize from 'react-textarea-autosize';
 import { DnDSortResult, useDnDSort } from "../DnD/useDnDSort";
 import { TextBlock } from "../types/text";
+import axios from "axios";
+import TestAxios from "./TestAxios";
 
+
+interface jsonType {
+    message: string;
+}
 
 
 const TextareaBlock = (props: DnDSortResult<string>) => {
@@ -28,6 +34,15 @@ const TextareaBlock = (props: DnDSortResult<string>) => {
 
 
 const TodoList = () => {
+    const [message, setMessage] = useState('');
+    useEffect(() => {
+        axios.get<jsonType>("/").then((response) => {
+            console.log(response.data.message)
+        //   setMessage(response.message);
+        });
+      }, []);
+
+
     // const defaultTextBlocks = [
     //     {id: 1, text: "abc"},
     //     {id: 2, text: "def"},
@@ -42,20 +57,28 @@ const TodoList = () => {
 
     const sortedTextBlocks = useDnDSort(defaultTextBlocks)
     
-    return (       
-        <form className="flex flex-col p-2 bg-red-400 flex-grow">
-            {sortedTextBlocks.map((block) => {
-                return (
-                    <TextareaBlock 
+    return ( 
+        <div>
+            <TestAxios />
+            <form className="flex flex-col p-2 bg-red-400 flex-grow">
+                {sortedTextBlocks.map((block) => {
+                    return(
                     
-                        key={block.key} 
-                        value={block.value} 
-                        events={block.events}
-                    />
-                )
-            })
-            
-        }</form>
+                        <div>
+                            <TextareaBlock 
+                                key={block.key} 
+                                value={block.value} 
+                                events={block.events}
+                            />
+
+                        </div>
+                        
+                    )
+                })
+                
+            }</form>
+        </div>      
+        
     )
 }
 
