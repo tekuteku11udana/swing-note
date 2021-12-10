@@ -2,7 +2,7 @@
 import { ChangeEvent } from "react"
 import { useState ,useEffect} from "react"
 import TextareaAutosize from 'react-textarea-autosize';
-import { DnDSortResult, useDnDSort } from "../DnD/useDnDSort";
+import { ReturnOfDnDSort, useDnDSort } from "../DnD/useDnDSort";
 import { TextBlock } from "../types/text";
 import axios from "axios";
 import TestAxios from "./TestAxios";
@@ -13,7 +13,7 @@ interface jsonType {
 }
 
 
-const TextareaBlock = (props: DnDSortResult<string>) => {
+const TextareaBlock = (props: ReturnOfDnDSort) => {
     const [text, setText] = useState(props.value)
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.currentTarget.value)
@@ -34,13 +34,7 @@ const TextareaBlock = (props: DnDSortResult<string>) => {
 
 
 const TodoList = () => {
-    const [message, setMessage] = useState('');
-    useEffect(() => {
-        axios.get<jsonType>("/").then((response) => {
-            console.log(response.data.message)
-        //   setMessage(response.message);
-        });
-      }, []);
+    
 
 
     // const defaultTextBlocks = [
@@ -48,18 +42,25 @@ const TodoList = () => {
     //     {id: 2, text: "def"},
     //     {id: 3, text: "ghi"}
     // ]
-    
-    const defaultTextBlocks: string[] =[
-        "abc",
-        "def",
-        "ghi"
+
+    const defaultTextBlocks = [
+        {key: 1, value: "abc"},
+        {key: 2, value: "def"},
+        {key: 3, value: "ghi"}
     ]
+    
+    // const defaultTextBlocks: string[] =[
+    //     "abc",
+    //     "def",
+    //     "ghi"
+    // ]
 
     const sortedTextBlocks = useDnDSort(defaultTextBlocks)
     
     return ( 
         <div>
             <TestAxios />
+            
             <form className="flex flex-col p-2 bg-red-400 flex-grow">
                 {sortedTextBlocks.map((block) => {
                     return(
