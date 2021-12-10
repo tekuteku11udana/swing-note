@@ -36,25 +36,13 @@ const TextareaBlock = (props: ReturnOfDnDSort) => {
 const TodoList = () => {
     
 
-
-    // const defaultTextBlocks = [
-    //     {id: 1, text: "abc"},
-    //     {id: 2, text: "def"},
-    //     {id: 3, text: "ghi"}
-    // ]
-
     const defaultTextBlocks = [
         {key: 1, value: "abc"},
         {key: 2, value: "def"},
         {key: 3, value: "ghi"}
     ]
     
-    // const defaultTextBlocks: string[] =[
-    //     "abc",
-    //     "def",
-    //     "ghi"
-    // ]
-
+    
     const sortedTextBlocks = useDnDSort(defaultTextBlocks)
     
     return ( 
