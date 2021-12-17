@@ -1,17 +1,18 @@
 package main
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"swing-note/database"
 )
 
 func main() {
-	engine := gin.Default()
-	engine.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "hello world",
-		})
-	})
-	engine.Run(":8080")
+	database.Connect()
+
+	// engine := gin.Default()
+	// engine.GET("/", func(c *gin.Context) {
+	// 	c.JSON(http.StatusOK, gin.H{
+	// 		"message": "hello world",
+	// 	})
+	// })
+	// engine.Run(":8080")
+
 }
